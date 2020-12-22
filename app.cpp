@@ -3,7 +3,7 @@
 #include "etroboc_ext.h"
 #include "EtrcRunner.h"
 
-EtrcRunner* etrc_runner = nullptr;
+EtrcRunner* etrc_runner = NULL;
 
 void initialize() {
   etrc_runner = new EtrcRunner();
