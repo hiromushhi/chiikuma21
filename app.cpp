@@ -1,8 +1,12 @@
 #include "ev3api.h"
 #include "app.h"
 #include "etroboc_ext.h"
+#include "EtrcRunner.h"
+
+EtrcRunner* etrc_runner = nullptr;
 
 void initialize() {
+  etrc_runner = new EtrcRunner();
   ev3_led_set_color(LED_ORANGE);
 }
 
@@ -17,6 +21,7 @@ void main_task() {
     if (ev3_button_is_pressed(BACK_BUTTON)) {
       break;
     }
+    etrc_runner->update();
   }
 
   finalize();
