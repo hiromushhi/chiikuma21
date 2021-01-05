@@ -1,6 +1,6 @@
-#include "ev3api.h"
 #include "app.h"
-#include "etroboc_ext.h"
+
+#include "ev3api.h"
 #include "EtrcRunner.h"
 
 EtrcRunner* etrc_runner = NULL;
