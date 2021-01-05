@@ -2,8 +2,8 @@
 #define CHIIKUMA21_ETRCRUNNER_H_
 
 class EtrcRunner {
-  public:
+ public:
     void update();
 };
 
-#endif // CHIIKUMA21_ETRCRUNNER_H_
+#endif  // CHIIKUMA21_ETRCRUNNER_H_
