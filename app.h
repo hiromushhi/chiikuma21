@@ -7,6 +7,7 @@ extern "C" {
 #endif
 
 void main_task();
+void runner_task();
 
 #ifdef __cplusplus
 }
