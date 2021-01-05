@@ -1,6 +1,6 @@
 APPL_COBJS += 
 INCLUDES += -I$(ETROBO_HRP3_WORKSPACE)/etroboc_common
 
-APPL_CXXOBJS += EtrcRunner.o LineTracer.o
+APPL_CXXOBJS += EtrcRunner.o LineTracer.o Wheels.o
 
 SRCLANG := c++
