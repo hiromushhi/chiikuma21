@@ -11,6 +11,7 @@ void initialize() {
 }
 
 void finalize() {
+  delete etrc_runner;
   ev3_led_set_color(LED_GREEN);
 }
 
