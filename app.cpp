@@ -13,6 +13,7 @@ void initialize() {
 
 void finalize() {
   delete etrc_runner;
+  etrc_runner = NULL;
   ev3_led_set_color(LED_GREEN);
 }
 

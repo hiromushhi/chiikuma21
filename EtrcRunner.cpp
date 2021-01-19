@@ -8,7 +8,9 @@ EtrcRunner::EtrcRunner() {
 
 EtrcRunner::~EtrcRunner() {
   delete linetrace_mode_;
+  linetrace_mode_ = NULL;
   delete wheels_;
+  wheels_ = NULL;
 }
 
 void EtrcRunner::Run() {
