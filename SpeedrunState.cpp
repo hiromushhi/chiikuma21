@@ -2,7 +2,8 @@
 
 SpeedrunState::SpeedrunState() {
   wheels_ = new Wheels();
-  linetrace_mode_ = new LinetraceMode(wheels_);
+  color_meter_ = new ColorMeter();
+  linetrace_mode_ = new LinetraceMode(wheels_, color_meter_);
   ev3_sensor_config(touch_sensor_, TOUCH_SENSOR);
 }
 

@@ -4,6 +4,7 @@
 #include "ev3api.h"
 #include "State.h"
 #include "Wheels.h"
+#include "ColorMeter.h"
 #include "LinetraceMode.h"
 
 class SpeedrunState : public State {
@@ -14,6 +15,7 @@ class SpeedrunState : public State {
 
  private:
   Wheels* wheels_;
+  ColorMeter* color_meter_;
   LinetraceMode* linetrace_mode_;
   static const sensor_port_t touch_sensor_ = EV3_PORT_1;
 };
