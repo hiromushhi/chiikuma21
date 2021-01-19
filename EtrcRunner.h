@@ -1,9 +1,7 @@
 #ifndef CHIIKUMA21_ETRCRUNNER_H_
 #define CHIIKUMA21_ETRCRUNNER_H_
 
-#include "Wheels.h"
-#include "LinetraceMode.h"
-#include "ev3api.h"
+#include "State.h"
 
 class EtrcRunner {
  public:
@@ -12,9 +10,7 @@ class EtrcRunner {
   void Run();
 
  private:
-  Wheels* wheels_;
-  LinetraceMode* linetrace_mode_;
-  static const sensor_port_t touch_sensor_ = EV3_PORT_1;
+  State* curr_state_;
 };
 
 #endif  // CHIIKUMA21_ETRCRUNNER_H_
