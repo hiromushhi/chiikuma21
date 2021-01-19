@@ -11,7 +11,7 @@ EtrcRunner::~EtrcRunner() {
   delete wheels_;
 }
 
-void EtrcRunner::update() {
+void EtrcRunner::Run() {
   static bool is_pushed = false;
 
   if (ev3_touch_sensor_is_pressed(touch_sensor_)) {
@@ -19,6 +19,6 @@ void EtrcRunner::update() {
   }
 
   if (is_pushed) {
-    linetrace_mode_->exec();
+    linetrace_mode_->Exec();
   }
 }

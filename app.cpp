@@ -33,5 +33,5 @@ void main_task() {
 }
 
 void runner_task() {
-  etrc_runner->update();
+  etrc_runner->Run();
 }

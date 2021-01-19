@@ -9,7 +9,7 @@ class EtrcRunner {
  public:
   EtrcRunner();
   ~EtrcRunner();
-  void update();
+  void Run();
 
  private:
   Wheels* wheels_;

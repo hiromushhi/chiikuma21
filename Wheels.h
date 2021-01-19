@@ -7,8 +7,8 @@ class Wheels {
  public:
   Wheels();
   ~Wheels();
-  void control(int8_t left_pwm, int8_t right_pwm);
-  void stop();
+  void Control(int8_t left_pwm, int8_t right_pwm);
+  void Stop();
 
  private:
   static const motor_port_t left_motor_ = EV3_PORT_C;

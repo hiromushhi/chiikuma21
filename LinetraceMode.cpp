@@ -7,6 +7,6 @@ LinetraceMode::LinetraceMode(Wheels* wheels) {
 LinetraceMode::~LinetraceMode() {
 }
 
-void LinetraceMode::exec() {
-  wheels_->control(15, 15);
+void LinetraceMode::Exec() {
+  wheels_->Control(15, 15);
 }

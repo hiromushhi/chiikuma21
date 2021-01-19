@@ -7,7 +7,7 @@ class LinetraceMode {
  public:
   LinetraceMode(Wheels* wheels);
   ~LinetraceMode();
-  void exec();
+  void Exec();
 
  private:
   Wheels* wheels_;
