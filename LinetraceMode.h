@@ -5,7 +5,7 @@
 
 class LinetraceMode {
  public:
-  LinetraceMode(Wheels* wheels);
+  explicit LinetraceMode(Wheels* wheels);
   ~LinetraceMode();
   void Exec();
 
