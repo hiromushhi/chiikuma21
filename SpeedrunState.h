@@ -9,7 +9,7 @@
 
 class SpeedrunState : public State {
  public:
-  SpeedrunState();
+  SpeedrunState(LinetraceMode* linetrace_mode);
   ~SpeedrunState();
   State* Update();
 

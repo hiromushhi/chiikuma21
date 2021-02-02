@@ -1,14 +1,11 @@
 #include "SpeedrunState.h"
 
-SpeedrunState::SpeedrunState() {
-  wheels_ = new Wheels();
-  color_meter_ = new ColorMeter();
-  linetrace_mode_ = new LinetraceMode(wheels_, color_meter_);
+SpeedrunState::SpeedrunState(LinetraceMode* linetrace_mode) {
+  linetrace_mode_ = linetrace_mode;
   ev3_sensor_config(touch_sensor_, TOUCH_SENSOR);
 }
 
 SpeedrunState::~SpeedrunState() {
-  wheels_->Stop();
 }
 
 State* SpeedrunState::Update() {

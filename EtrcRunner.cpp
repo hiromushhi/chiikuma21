@@ -4,12 +4,17 @@
 #include "SpeedrunState.h"
 
 EtrcRunner::EtrcRunner() {
-  curr_state_ = new SpeedrunState();
+  wheels_ = new Wheels();
+  color_meter_ = new ColorMeter();
+  linetrace_mode_ = new LinetraceMode(wheels_, color_meter_);
+  curr_state_ = new SpeedrunState(linetrace_mode_);
 }
 
 EtrcRunner::~EtrcRunner() {
   delete curr_state_;
-  curr_state_ = NULL;
+  delete linetrace_mode_;
+  delete color_meter_;
+  delete wheels_;
 }
 
 void EtrcRunner::Run() {
