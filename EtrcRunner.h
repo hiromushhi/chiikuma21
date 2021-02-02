@@ -1,7 +1,7 @@
 #ifndef CHIIKUMA21_ETRCRUNNER_H_
 #define CHIIKUMA21_ETRCRUNNER_H_
 
-#include "State.h"
+#include "state_transition.h"
 #include "Wheels.h"
 #include "ColorMeter.h"
 #include "LinetraceMode.h"

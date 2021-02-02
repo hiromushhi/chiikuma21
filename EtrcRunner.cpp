@@ -1,7 +1,6 @@
 #include "EtrcRunner.h"
 
 #include "ev3api.h"
-#include "SpeedrunState.h"
 
 EtrcRunner::EtrcRunner() {
   wheels_ = new Wheels();
