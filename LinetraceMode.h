@@ -3,6 +3,7 @@
 
 #include "Wheels.h"
 #include "ColorMeter.h"
+#include "PidControl.h"
 
 class LinetraceMode {
  public:
@@ -13,6 +14,7 @@ class LinetraceMode {
  private:
   Wheels* wheels_;
   ColorMeter* color_meter_;
+  PidControl* pid_control_;
 };
 
 #endif  // CHIIKUMA21_LINETRACEMODE_H_
