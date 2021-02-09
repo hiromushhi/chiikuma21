@@ -3,7 +3,7 @@
 #include "ev3api.h"
 #include "EtrcRunner.h"
 
-EtrcRunner* etrc_runner = NULL;
+EtrcRunner* etrc_runner;
 
 void initialize() {
   etrc_runner = new EtrcRunner();
@@ -13,7 +13,6 @@ void initialize() {
 
 void finalize() {
   delete etrc_runner;
-  etrc_runner = NULL;
   ev3_led_set_color(LED_GREEN);
 }
 
