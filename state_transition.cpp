@@ -22,13 +22,22 @@ State* SpeedrunState::Update() {
 }
 
 GameplayState::GameplayState() {
+  strategy_ = new Strategy();
 }
 
 GameplayState::~GameplayState() {
 }
 
 State* GameplayState::Update() {
-  return this;
+  State* state = this;
+
+  if (strategy_->IsCompleted()) {
+    state = new ParkstopState();
+  } else {
+    strategy_->Exec();
+  }
+
+  return state;
 }
 
 ParkstopState::ParkstopState() {
