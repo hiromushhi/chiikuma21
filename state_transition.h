@@ -2,9 +2,9 @@
 #define CHIIKUMA21_STATE_TRANSITION_H_
 
 #include "ev3api.h"
+#include "drive_modes.h"
 #include "Wheels.h"
 #include "ColorMeter.h"
-#include "LinetraceMode.h"
 
 class State {
  public:

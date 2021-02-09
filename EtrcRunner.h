@@ -2,9 +2,9 @@
 #define CHIIKUMA21_ETRCRUNNER_H_
 
 #include "state_transition.h"
+#include "drive_modes.h"
 #include "Wheels.h"
 #include "ColorMeter.h"
-#include "LinetraceMode.h"
 
 class EtrcRunner {
  public:
