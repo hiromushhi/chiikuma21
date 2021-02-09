@@ -20,12 +20,12 @@ float PidControl::GetMv(int32_t current_val, int32_t target_val) {
 
   diff0_ = diff1_;
   diff1_ = current_val - target_val;
+  integral_ += (diff1_ + diff0_) / 2.0 * dt_;
 
   p = kp_ * diff1_;
-  integral_ += (diff1_ + diff0_) / 2.0 * dt_;
   i = ki_ * integral_;
   d = kd_ * (diff1_ - diff0_) / dt_;
-
   mv = p + i + d;
+
   return mv;
 }
