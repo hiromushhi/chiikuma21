@@ -29,7 +29,6 @@ void main_task() {
 
   stp_cyc(RUNNER_CYC);
   finalize();
-  ext_tsk();
 }
 
 void runner_task() {
