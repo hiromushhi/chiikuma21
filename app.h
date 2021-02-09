@@ -1,3 +1,6 @@
+#ifndef CHIIKUMA21_APP_H_
+#define CHIIKUMA21_APP_H_
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -12,3 +15,5 @@ void runner_task();
 #ifdef __cplusplus
 }
 #endif
+
+#endif  // CHIIKUMA21_APP_H_
