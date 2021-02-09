@@ -18,3 +18,29 @@ void LinetraceMode::Exec() {
   int8_t right_pwm = static_cast<float>(20 - mv);
   wheels_->Control(left_pwm, right_pwm);
 }
+
+
+StraightMode::StraightMode(Wheels* wheels) {
+  wheels_ = wheels;
+}
+
+StraightMode::~StraightMode() {
+  ;
+}
+
+void StraightMode::Exec(int8_t pwm) {
+  wheels_->Control(pwm, pwm);
+}
+
+
+RotationMode::RotationMode(Wheels* wheels) {
+  wheels_ = wheels;
+}
+
+RotationMode::~RotationMode() {
+  ;
+}
+
+void RotationMode::Exec(int8_t pwm) {
+  wheels_->Control(pwm, 0);
+}
