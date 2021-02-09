@@ -3,8 +3,8 @@
 
 #include "state_transition.h"
 #include "drive_modes.h"
+#include "meters.h"
 #include "Wheels.h"
-#include "ColorMeter.h"
 
 class EtrcRunner {
  public:

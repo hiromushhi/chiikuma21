@@ -2,8 +2,8 @@
 #define CHIIKUMA21_DRIVE_MODES_H_
 
 #include "ev3api.h"
+#include "meters.h"
 #include "Wheels.h"
-#include "ColorMeter.h"
 #include "PidControl.h"
 
 class LinetraceMode {

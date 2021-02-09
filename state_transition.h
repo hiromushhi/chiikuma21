@@ -4,8 +4,8 @@
 #include "ev3api.h"
 #include "drive_modes.h"
 #include "game_strategy.h"
+#include "meters.h"
 #include "Wheels.h"
-#include "ColorMeter.h"
 
 class State {
  public:
