@@ -1,0 +1,4 @@
+#ifndef CHIIKUMA21_METERS_H_
+#define CHIIKUMA21_METERS_H_
+
+#endif  // CHIIKUMA21_METERS_H_
