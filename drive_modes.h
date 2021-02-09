@@ -1,0 +1,6 @@
+#ifndef CHIIKUMA21_DRIVE_MODES_H_
+#define CHIIKUMA21_DRIVE_MODES_H_
+
+#include "ev3api.h"
+
+#endif  // CHIIKUMA21_DRIVE_MODES_H_
