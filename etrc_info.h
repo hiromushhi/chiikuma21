@@ -31,9 +31,9 @@ class LightEnvironment {
   Color GetColor();
 
  private:
-  Hsv curr_hsv;
-  Hsv color_ref[kColorNum];
-  Color curr_color;
+  Hsv curr_hsv_;
+  Hsv color_ref_[kColorNum];
+  Color curr_color_;
 };
 
 class VehicleSpeed {
