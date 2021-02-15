@@ -1,13 +1,26 @@
 #include "app.h"
 
 #include "ev3api.h"
+#include "etrc_info.h"
+
+SelfLocalization* self_localization;
+LightEnvironment* light_environment;
+VehicleSpeed* vehicle_speed;
 
 void initialize() {
+  self_localization = new SelfLocalization();
+  light_environment = new LightEnvironment();
+  vehicle_speed = new VehicleSpeed();
+
   ev3_lcd_set_font(EV3_FONT_MEDIUM);
   ev3_led_set_color(LED_ORANGE);
 }
 
 void finalize() {
+  delete vehicle_speed;
+  delete light_environment;
+  delete self_localization;
+
   ev3_led_set_color(LED_GREEN);
 }
 
@@ -32,4 +45,7 @@ void exec_action_task() {
 }
 
 void update_info_task() {
+  self_localization->Update();
+  light_environment->Update();
+  vehicle_speed->Update();
 }
