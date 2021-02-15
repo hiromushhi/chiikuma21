@@ -1,24 +1,20 @@
 #include "app.h"
 
 #include "ev3api.h"
-#include "EtrcRunner.h"
-
-EtrcRunner* etrc_runner;
 
 void initialize() {
-  etrc_runner = new EtrcRunner();
   ev3_lcd_set_font(EV3_FONT_MEDIUM);
   ev3_led_set_color(LED_ORANGE);
 }
 
 void finalize() {
-  delete etrc_runner;
   ev3_led_set_color(LED_GREEN);
 }
 
 void main_task() {
   initialize();
-  sta_cyc(RUNNER_CYC);
+  sta_cyc(EXEC_ACTION_CYC);
+  sta_cyc(UPDATE_INFO_CYC);
 
   while (true) {
     if (ev3_button_is_pressed(BACK_BUTTON)) {
@@ -27,10 +23,13 @@ void main_task() {
     tslp_tsk(100*1000U);
   }
 
-  stp_cyc(RUNNER_CYC);
+  stp_cyc(EXEC_ACTION_CYC);
+  stp_cyc(UPDATE_INFO_CYC);
   finalize();
 }
 
-void runner_task() {
-  etrc_runner->Run();
+void exec_action_task() {
+}
+
+void update_info_task() {
 }

@@ -10,7 +10,8 @@ extern "C" {
 #endif
 
 void main_task();
-void runner_task();
+void exec_action_task();
+void update_info_task();
 
 #ifdef __cplusplus
 }
