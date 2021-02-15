@@ -1,13 +1,18 @@
 #include "app.h"
 
 #include "ev3api.h"
+#include "device_io.h"
 #include "etrc_info.h"
 
+MotorIo* motor_io;
+SensorIo* sensor_io;
 SelfLocalization* self_localization;
 LightEnvironment* light_environment;
 VehicleSpeed* vehicle_speed;
 
 void initialize() {
+  motor_io = new MotorIo();
+  sensor_io = new SensorIo();
   self_localization = new SelfLocalization();
   light_environment = new LightEnvironment();
   vehicle_speed = new VehicleSpeed();
@@ -20,6 +25,8 @@ void finalize() {
   delete vehicle_speed;
   delete light_environment;
   delete self_localization;
+  delete sensor_io;
+  delete motor_io;
 
   ev3_led_set_color(LED_GREEN);
 }
