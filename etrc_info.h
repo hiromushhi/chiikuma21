@@ -1,6 +1,24 @@
 #ifndef CHIIKUMA21_ETRC_INFO_H_
 #define CHIIKUMA21_ETRC_INFO_H_
 
+#include "ev3api.h"
+
+struct Hsv {
+  uint16_t h;
+  uint16_t s;
+  uint16_t v;
+};
+
+enum Color {
+  kGreen = 0,
+  kBlack,
+  kRed,
+  kYellow,
+  kBlue,
+  kWhite,
+  kColorNum
+};
+
 class SelfLocalization {
  public:
   void Update();
@@ -9,6 +27,13 @@ class SelfLocalization {
 class LightEnvironment {
  public:
   void Update();
+  void SetColorReference(Color c, Hsv data);
+  Color GetColor();
+
+ private:
+  Hsv curr_hsv;
+  Hsv color_ref[kColorNum];
+  Color curr_color;
 };
 
 class VehicleSpeed {
