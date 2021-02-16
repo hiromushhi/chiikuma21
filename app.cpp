@@ -18,7 +18,7 @@ void initialize() {
   motor_io = new MotorIo();
   sensor_io = new SensorIo();
   self_localization = new SelfLocalization();
-  light_environment = new LightEnvironment();
+  light_environment = new LightEnvironment(sensor_io);
   vehicle_speed = new VehicleSpeed();
   drive_control = new DriveControl();
   state_manager = new StateManager();
