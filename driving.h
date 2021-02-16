@@ -7,17 +7,19 @@ enum Edge {
   kEdgeNum
 };
 
-struct Param {
-  float velocity;
-};
-
 class Section {
+ public:
+  virtual void Exec() = 0;
 };
 
 class LinetraceSection : public Section {
+ public:
+  void Exec();
 };
 
 class VirtualLinetraceSection : public Section {
+ public:
+  void Exec();
 };
 
 class Linetracer {
@@ -29,16 +31,16 @@ class VirtualLinetracer {
 class DriveControl {
 };
 
-class Cond {
+class Condition {
 };
 
-class ColorCond : public Cond {
+class ColorCondition : public Condition {
 };
 
-class DistanceCond : public Cond {
+class DistanceCondition : public Condition {
 };
 
-class CompositeCond : public Cond {
+class CompositeCondition : public Condition {
 };
 
 #endif  // CHIIKUMA21_DRIVING_H_
