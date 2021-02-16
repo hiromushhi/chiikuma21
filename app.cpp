@@ -3,12 +3,16 @@
 #include "ev3api.h"
 #include "device_io.h"
 #include "etrc_info.h"
+#include "driving.h"
+#include "behavior.h"
 
 MotorIo* motor_io;
 SensorIo* sensor_io;
 SelfLocalization* self_localization;
 LightEnvironment* light_environment;
 VehicleSpeed* vehicle_speed;
+DriveControl* drive_control;
+StateManager* state_manager;
 
 void initialize() {
   motor_io = new MotorIo();
@@ -16,12 +20,16 @@ void initialize() {
   self_localization = new SelfLocalization();
   light_environment = new LightEnvironment();
   vehicle_speed = new VehicleSpeed();
+  drive_control = new DriveControl();
+  state_manager = new StateManager();
 
   ev3_lcd_set_font(EV3_FONT_MEDIUM);
   ev3_led_set_color(LED_ORANGE);
 }
 
 void finalize() {
+  delete state_manager;
+  delete drive_control;
   delete vehicle_speed;
   delete light_environment;
   delete self_localization;
@@ -49,6 +57,7 @@ void main_task() {
 }
 
 void exec_action_task() {
+  state_manager->Exec();
 }
 
 void update_info_task() {
