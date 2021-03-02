@@ -3,7 +3,15 @@
 
 #include "ev3api.h"
 
+struct Count {
+  int32_t l;
+  int32_t r;
+};
+
 class MotorIo {
+ public:
+  MotorIo();
+  Count GetCounts();
 };
 
 class SensorIo {

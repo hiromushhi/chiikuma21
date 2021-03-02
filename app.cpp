@@ -17,9 +17,9 @@ StateManager* state_manager;
 void initialize() {
   motor_io = new MotorIo();
   sensor_io = new SensorIo();
-  self_localization = new SelfLocalization();
   light_environment = new LightEnvironment(sensor_io);
-  vehicle_speed = new VehicleSpeed();
+  vehicle_speed = new VehicleSpeed(motor_io);
+  self_localization = new SelfLocalization(vehicle_speed);
   drive_control = new DriveControl();
   state_manager = new StateManager();
 
@@ -30,9 +30,9 @@ void initialize() {
 void finalize() {
   delete state_manager;
   delete drive_control;
+  delete self_localization;
   delete vehicle_speed;
   delete light_environment;
-  delete self_localization;
   delete sensor_io;
   delete motor_io;
 

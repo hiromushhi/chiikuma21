@@ -1,6 +1,7 @@
 #include "etrc_info.h"
 
-#include <math.h>
+SelfLocalization::SelfLocalization(VehicleSpeed* vehicle_speed) {
+}
 
 void SelfLocalization::Update() {
 }
@@ -126,5 +127,26 @@ void LightEnvironment::UpdateColor() {
   }
 }
 
+VehicleSpeed::VehicleSpeed(MotorIo* motor_io) {
+  motor_io_ = motor_io;
+  speed_ = {0, 0, 0};
+}
+
 void VehicleSpeed::Update() {
+  static Count prev_count = {0, 0};
+
+  Count curr_count = motor_io_->GetCounts();
+  float dl = (curr_count.l - prev_count.l) / 360.0 * circ_;
+  float dr = (curr_count.r - prev_count.r) / 360.0 * circ_;
+  float db = (dl + dr) / 2.0;
+
+  speed_.l = dl / dt_;
+  speed_.r = dr / dt_;
+  speed_.b = db / dt_;
+
+  prev_count = curr_count;
+}
+
+Speed VehicleSpeed::GetSpeed() {
+  return speed_;
 }
