@@ -17,6 +17,7 @@ enum Color {
   kYellow,
   kBlue,
   kWhite,
+  kNone,
   kColorNum
 };
 

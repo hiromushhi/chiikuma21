@@ -1,5 +1,7 @@
 #include "etrc_info.h"
 
+#include <math.h>
+
 void SelfLocalization::Update() {
 }
 
@@ -11,7 +13,8 @@ LightEnvironment::LightEnvironment(SensorIo* sensor_io) {
   SetColorReference(kRed, {0, 0, 0});
   SetColorReference(kYellow, {50, 0, 0});
   SetColorReference(kBlue, {210, 0, 0});
-  SetColorReference(kWhite, {0, 0, 0});
+  SetColorReference(kWhite, {0, 20, 0});
+  SetColorReference(kNone, {0, 0, 0});
 }
 
 void LightEnvironment::Update() {
@@ -27,6 +30,18 @@ void LightEnvironment::Update() {
   ev3_lcd_draw_string(str, 10, 30);
   sprintf(str, "V:%5f", curr_hsv_.v);
   ev3_lcd_draw_string(str, 10, 50);
+
+  switch (curr_color_) {
+    case kGreen:  sprintf(str, "Green "); break;
+    case kBlack:  sprintf(str, "Black "); break;
+    case kRed:    sprintf(str, "Red   "); break;
+    case kYellow: sprintf(str, "Yellow"); break;
+    case kBlue:   sprintf(str, "Blue  "); break;
+    case kWhite:  sprintf(str, "White "); break;
+    case kNone:   sprintf(str, "None  "); break;
+    default:      sprintf(str, "Nonen "); break;
+  }
+  ev3_lcd_draw_string(str, 10, 70);
 }
 
 void LightEnvironment::SetColorReference(Color c, Hsv data) {
@@ -46,26 +61,69 @@ void LightEnvironment::UpdateHsv(rgb_raw_t val) {
   max = max > b ? max : b;
   float min = r < g ? r : g;
   min = min < b ? min : b;
+  float c = max - min;
 
   float h;
-  if (min == max) {
+  if (c == 0) {
     h = -1;
-  } else if (min == b) {
-    h = 60 * (g - r) / (max - min) + 60;
-  } else if (min == r) {
-    h = 60 * (b - g) / (max - min) + 180;
-  } else if (min == g) {
-    h = 60 * (r - b) / (max - min) + 300;
+  } else if (max == r) {
+    h = fmodf(((g - b) / c), 6);
+  } else if (max == g) {
+    h = ((b - r) / c) + 2;
+  } else if (max == b) {
+    h = ((r - g) / c) + 4;
   } else {
     h = -1;
   }
 
+  if (h != -1) {
+    h = 60 * h;
+  }
+
+  float s;
+  if (max == 0) {
+    s = 0;
+  } else {
+    s = c / max;
+  }
+
+  float v = max;
+  if (v > 100) {
+    v = 100;
+  }
+
   curr_hsv_.h = h;
-  curr_hsv_.s = (max - min);
-  curr_hsv_.v = max;
+  curr_hsv_.s = s * 100;
+  curr_hsv_.v = v;
 }
 
 void LightEnvironment::UpdateColor() {
+  float sat_white = color_ref_[kWhite].s;
+  float val_black = color_ref_[kBlack].v;
+  float hue_green = color_ref_[kGreen].h;
+  float hue_red = color_ref_[kRed].h;
+  float hue_blue = color_ref_[kBlue].h;
+  float hue_yellow = color_ref_[kYellow].h;
+
+  if (sat_white - 20 < curr_hsv_.s && curr_hsv_.s < sat_white + 20) {
+    curr_color_ = kWhite;
+  } else {
+    if (hue_green - 20 < curr_hsv_.h && curr_hsv_.h < hue_green + 70) {
+      if (curr_hsv_.v < val_black + 20) {
+        curr_color_ = kBlack;
+      } else {
+        curr_color_ = kGreen;
+      }
+    } else if (curr_hsv_.h < hue_red + 20 || 360 - 20 < curr_hsv_.h) {
+      curr_color_ = kRed;
+    } else if (hue_blue - 20 < curr_hsv_.h && curr_hsv_.h < hue_blue + 20) {
+      curr_color_ = kBlue;
+    } else if (hue_yellow - 20 < curr_hsv_.h && curr_hsv_.h < hue_yellow + 20) {
+      curr_color_ = kYellow;
+    } else {
+      curr_color_ = kNone;
+    }
+  }
 }
 
 void VehicleSpeed::Update() {
