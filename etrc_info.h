@@ -58,13 +58,21 @@ class VehicleSpeed {
   const float circ_ = M_PI * 100;  // タイヤの外周 [mm]
 };
 
+struct Coordinate {
+  float x;
+  float y;
+  float theta;
+};
+
 class SelfLocalization {
  public:
   SelfLocalization(VehicleSpeed* vehicle_speed);
   void Update();
 
  private:
+  Coordinate coordinate_;
   VehicleSpeed* vehicle_speed_;
+  const float dt_ = 0.01;  // app.cfgと整合する必要あり
   const float tread_ = 143;  // 左右の車輪中心間距離 [mm]
 };
 

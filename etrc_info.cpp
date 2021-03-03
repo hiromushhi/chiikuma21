@@ -1,9 +1,23 @@
 #include "etrc_info.h"
 
 SelfLocalization::SelfLocalization(VehicleSpeed* vehicle_speed) {
+  vehicle_speed_ = vehicle_speed;
+  coordinate_ = {0, 0, 0};
 }
 
 void SelfLocalization::Update() {
+  Speed v = vehicle_speed_->GetSpeed();
+
+  float dLR = v.r * dt_;
+  float dLL = v.l * dt_;
+  float dL = (dLR + dLL) / 2;
+  float dtheta = (dLR - dLL) / tread_;
+  float p = dL / dtheta;
+  float dLprime = 2 * p * sin(dtheta/2);
+
+  coordinate_.x = coordinate_.x + dLprime * cos(coordinate_.theta + dtheta/2);
+  coordinate_.y = coordinate_.y + dLprime * sin(coordinate_.theta + dtheta/2);
+  coordinate_.theta = coordinate_.theta + dtheta;
 }
 
 LightEnvironment::LightEnvironment(SensorIo* sensor_io) {
