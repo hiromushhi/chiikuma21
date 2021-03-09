@@ -62,25 +62,25 @@ void LightEnvironment::Update() {
   UpdateColor();
 
   // debug
-  char str[32];
-  sprintf(str, "H:%5f", curr_hsv_.h);
-  ev3_lcd_draw_string(str, 10, 10);
-  sprintf(str, "S:%5f", curr_hsv_.s);
-  ev3_lcd_draw_string(str, 10, 30);
-  sprintf(str, "V:%5f", curr_hsv_.v);
-  ev3_lcd_draw_string(str, 10, 50);
+  // char str[32];
+  // sprintf(str, "H:%5f", curr_hsv_.h);
+  // ev3_lcd_draw_string(str, 10, 10);
+  // sprintf(str, "S:%5f", curr_hsv_.s);
+  // ev3_lcd_draw_string(str, 10, 30);
+  // sprintf(str, "V:%5f", curr_hsv_.v);
+  // ev3_lcd_draw_string(str, 10, 50);
 
-  switch (curr_color_) {
-    case kGreen:  sprintf(str, "Green "); break;
-    case kBlack:  sprintf(str, "Black "); break;
-    case kRed:    sprintf(str, "Red   "); break;
-    case kYellow: sprintf(str, "Yellow"); break;
-    case kBlue:   sprintf(str, "Blue  "); break;
-    case kWhite:  sprintf(str, "White "); break;
-    case kNone:   sprintf(str, "None  "); break;
-    default:      sprintf(str, "Nonen "); break;
-  }
-  ev3_lcd_draw_string(str, 10, 70);
+  // switch (curr_color_) {
+  //   case kGreen:  sprintf(str, "Green "); break;
+  //   case kBlack:  sprintf(str, "Black "); break;
+  //   case kRed:    sprintf(str, "Red   "); break;
+  //   case kYellow: sprintf(str, "Yellow"); break;
+  //   case kBlue:   sprintf(str, "Blue  "); break;
+  //   case kWhite:  sprintf(str, "White "); break;
+  //   case kNone:   sprintf(str, "None  "); break;
+  //   default:      sprintf(str, "Nonen "); break;
+  // }
+  // ev3_lcd_draw_string(str, 10, 70);
 }
 
 void LightEnvironment::SetColorReference(Color c, Hsv data) {
