@@ -10,15 +10,17 @@ MotorIo* motor_io;
 SensorIo* sensor_io;
 SelfLocalization* self_localization;
 LightEnvironment* light_environment;
+Linetracer* linetracer;
 DriveControl* drive_control;
 StateManager* state_manager;
 
 void initialize() {
   motor_io = new MotorIo();
   sensor_io = new SensorIo();
-  light_environment = new LightEnvironment(sensor_io);
   self_localization = new SelfLocalization(motor_io);
-  drive_control = new DriveControl();
+  light_environment = new LightEnvironment(sensor_io);
+  linetracer = new Linetracer(light_environment);
+  drive_control = new DriveControl(motor_io);
   state_manager = new StateManager();
 
   ev3_lcd_set_font(EV3_FONT_MEDIUM);
@@ -28,8 +30,9 @@ void initialize() {
 void finalize() {
   delete state_manager;
   delete drive_control;
-  delete self_localization;
+  delete linetracer;
   delete light_environment;
+  delete self_localization;
   delete sensor_io;
   delete motor_io;
 
@@ -55,6 +58,9 @@ void main_task() {
 
 void exec_action_task() {
   state_manager->Exec();
+
+  float mv = linetracer->Exec();
+  drive_control->Exec(mv);
 }
 
 void update_info_task() {
