@@ -168,3 +168,21 @@ void LightEnvironment::UpdateColor() {
     }
   }
 }
+
+Logger::Logger(SelfLocalization* self_localization) {
+  self_localization_ = self_localization;
+}
+
+Logger::~Logger() {
+  FILE* fp = fopen("log.csv", "w");
+  for (size_t i = 0; i < postures_.size(); i++) {
+    Posture p = postures_[i];
+    fprintf(fp, "%.2f,%.2f\n", p.x, p.y);
+  }
+  fclose(fp);
+}
+
+void Logger::Update() {
+  Posture posture = self_localization_->GetPosture();
+  postures_.push_back(posture);
+}
