@@ -10,7 +10,6 @@ MotorIo* motor_io;
 SensorIo* sensor_io;
 SelfLocalization* self_localization;
 LightEnvironment* light_environment;
-VehicleSpeed* vehicle_speed;
 DriveControl* drive_control;
 StateManager* state_manager;
 
@@ -18,8 +17,7 @@ void initialize() {
   motor_io = new MotorIo();
   sensor_io = new SensorIo();
   light_environment = new LightEnvironment(sensor_io);
-  vehicle_speed = new VehicleSpeed(motor_io);
-  self_localization = new SelfLocalization(vehicle_speed);
+  self_localization = new SelfLocalization(motor_io);
   drive_control = new DriveControl();
   state_manager = new StateManager();
 
@@ -31,7 +29,6 @@ void finalize() {
   delete state_manager;
   delete drive_control;
   delete self_localization;
-  delete vehicle_speed;
   delete light_environment;
   delete sensor_io;
   delete motor_io;
@@ -63,5 +60,4 @@ void exec_action_task() {
 void update_info_task() {
   self_localization->Update();
   light_environment->Update();
-  vehicle_speed->Update();
 }
