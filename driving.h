@@ -1,6 +1,9 @@
 #ifndef CHIIKUMA21_DRIVING_H_
 #define CHIIKUMA21_DRIVING_H_
 
+#include "etrc_info.h"
+#include "utils.h"
+
 enum Edge {
   kLeft = 0,
   kRight,
@@ -23,12 +26,26 @@ class VirtualLinetraceSection : public Section {
 };
 
 class Linetracer {
+ public:
+  Linetracer(LightEnvironment* light_environment);
+  ~Linetracer();
+  float Exec();
+
+ private:
+  LightEnvironment* light_environment_;
+  PidControl* pid_control_;
 };
 
 class VirtualLinetracer {
 };
 
 class DriveControl {
+ public:
+  DriveControl(MotorIo* motor_io);
+  void Exec(float mv);
+
+ private:
+  MotorIo* motor_io_;
 };
 
 class Condition {
