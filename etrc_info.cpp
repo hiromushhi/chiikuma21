@@ -91,6 +91,10 @@ Color LightEnvironment::GetColor() {
   return curr_color_;
 }
 
+Hsv LightEnvironment::GetHsv() {
+  return curr_hsv_;
+}
+
 void LightEnvironment::UpdateHsv(rgb_raw_t val) {
   float r = static_cast<float>(val.r);
   float g = static_cast<float>(val.g);

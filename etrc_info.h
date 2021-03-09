@@ -29,6 +29,7 @@ class LightEnvironment {
   void Update();
   void SetColorReference(Color c, Hsv data);
   Color GetColor();
+  Hsv GetHsv();
 
  private:
   void UpdateHsv(rgb_raw_t val);
