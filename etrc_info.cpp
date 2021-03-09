@@ -1,23 +1,47 @@
 #include "etrc_info.h"
 
-SelfLocalization::SelfLocalization(VehicleSpeed* vehicle_speed) {
-  vehicle_speed_ = vehicle_speed;
-  coordinate_ = {0, 0, 0};
+SelfLocalization::SelfLocalization(MotorIo* motor_io) {
+  motor_io_ = motor_io;
+  posture_ = {0, 0, 0};
+  prev_count_ = {0, 0};
+  distance_ = 0;
 }
 
 void SelfLocalization::Update() {
-  Speed v = vehicle_speed_->GetSpeed();
+  // 自己位置の更新
+  Count curr_count = motor_io_->GetCounts();
 
-  float dLR = v.r * dt_;
-  float dLL = v.l * dt_;
+  float dPhiL = (curr_count.l - prev_count_.l) * M_PI / 180;
+  float dPhiR = (curr_count.r - prev_count_.r) * M_PI / 180;
+
+  float dLL = radius_ * dPhiL;
+  float dLR = radius_ * dPhiR;
   float dL = (dLR + dLL) / 2;
   float dtheta = (dLR - dLL) / tread_;
-  float p = dL / dtheta;
-  float dLprime = 2 * p * sin(dtheta/2);
 
-  coordinate_.x = coordinate_.x + dLprime * cos(coordinate_.theta + dtheta/2);
-  coordinate_.y = coordinate_.y + dLprime * sin(coordinate_.theta + dtheta/2);
-  coordinate_.theta = coordinate_.theta + dtheta;
+  posture_.theta = posture_.theta + dtheta;
+  if (dtheta < dtheta_th_) {
+    posture_.x = posture_.x + dL * cos(posture_.theta + dtheta / 2);
+    posture_.y = posture_.y + dL * sin(posture_.theta + dtheta / 2);
+  } else {
+    float rho = dL / dtheta;
+    float dLprime = 2 * rho * sin(dtheta / 2);
+    posture_.x = posture_.x + dLprime * cos(posture_.theta + dtheta / 2);
+    posture_.y = posture_.y + dLprime * sin(posture_.theta + dtheta / 2);
+  }
+
+  prev_count_ = curr_count;
+
+  // 走行距離の更新
+  distance_ += dL;
+}
+
+Posture SelfLocalization::GetPosture() {
+  return posture_;
+}
+
+float SelfLocalization::GetDistance() {
+  return distance_;
 }
 
 LightEnvironment::LightEnvironment(SensorIo* sensor_io) {
@@ -139,28 +163,4 @@ void LightEnvironment::UpdateColor() {
       curr_color_ = kNone;
     }
   }
-}
-
-VehicleSpeed::VehicleSpeed(MotorIo* motor_io) {
-  motor_io_ = motor_io;
-  speed_ = {0, 0, 0};
-}
-
-void VehicleSpeed::Update() {
-  static Count prev_count = {0, 0};
-
-  Count curr_count = motor_io_->GetCounts();
-  float dl = (curr_count.l - prev_count.l) / 360.0 * circ_;
-  float dr = (curr_count.r - prev_count.r) / 360.0 * circ_;
-  float db = (dl + dr) / 2.0;
-
-  speed_.l = dl / dt_;
-  speed_.r = dr / dt_;
-  speed_.b = db / dt_;
-
-  prev_count = curr_count;
-}
-
-Speed VehicleSpeed::GetSpeed() {
-  return speed_;
 }

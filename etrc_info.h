@@ -39,26 +39,7 @@ class LightEnvironment {
   Color curr_color_;
 };
 
-struct Speed {
-  float l;
-  float r;
-  float b;
-};
-
-class VehicleSpeed {
- public:
-  VehicleSpeed(MotorIo* motor_io);
-  void Update();
-  Speed GetSpeed();
-
- private:
-  MotorIo* motor_io_;
-  Speed speed_;
-  const float dt_ = 0.01;  // app.cfgと整合する必要あり
-  const float circ_ = M_PI * 100;  // タイヤの外周 [mm]
-};
-
-struct Coordinate {
+struct Posture {
   float x;
   float y;
   float theta;
@@ -66,14 +47,19 @@ struct Coordinate {
 
 class SelfLocalization {
  public:
-  SelfLocalization(VehicleSpeed* vehicle_speed);
+  SelfLocalization(MotorIo* motor_io);
   void Update();
+  Posture GetPosture();
+  float GetDistance();
 
  private:
-  Coordinate coordinate_;
-  VehicleSpeed* vehicle_speed_;
-  const float dt_ = 0.01;  // app.cfgと整合する必要あり
+  MotorIo* motor_io_;
+  Posture posture_;
+  Count prev_count_;
+  float distance_;
+  const float radius_ = 50;  // タイヤの半径 [mm]
   const float tread_ = 143;  // 左右の車輪中心間距離 [mm]
+  const float dtheta_th_ = 0.001;  // dthetaが十分小さいか判定する閾値
 };
 
 #endif  // CHIIKUMA21_ETRC_INFO_H_
