@@ -2,7 +2,9 @@
 
 MotorIo::MotorIo() {
   ev3_motor_config(EV3_PORT_B, LARGE_MOTOR);
+  ev3_motor_reset_counts(EV3_PORT_B);
   ev3_motor_config(EV3_PORT_C, LARGE_MOTOR);
+  ev3_motor_reset_counts(EV3_PORT_C);
 }
 
 Count MotorIo::GetCounts() {
