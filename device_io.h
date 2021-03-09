@@ -11,7 +11,9 @@ struct Count {
 class MotorIo {
  public:
   MotorIo();
+  ~MotorIo();
   Count GetCounts();
+  void SetPwm(int8_t left, int8_t right);
 };
 
 class SensorIo {
