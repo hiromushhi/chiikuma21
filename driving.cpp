@@ -22,6 +22,19 @@ float Linetracer::Exec() {
   return mv;
 }
 
+VirtualLinetracer::VirtualLinetracer(SelfLocalization* self_localization) {
+  self_localization_ = self_localization;
+  pid_control_ = new PidControl(0.2, 0.0, 0.01, 0.01);
+}
+
+VirtualLinetracer::~VirtualLinetracer() {
+  delete pid_control_;
+}
+
+float VirtualLinetracer::Exec() {
+  return 0.0;
+}
+
 DriveControl::DriveControl(MotorIo* motor_io) {
   motor_io_ = motor_io;
 }

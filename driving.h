@@ -37,6 +37,14 @@ class Linetracer {
 };
 
 class VirtualLinetracer {
+ public:
+  VirtualLinetracer(SelfLocalization* self_localization);
+  ~VirtualLinetracer();
+  float Exec();
+
+ private:
+  SelfLocalization* self_localization_;
+  PidControl* pid_control_;
 };
 
 class DriveControl {
