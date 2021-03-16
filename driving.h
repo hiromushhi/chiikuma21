@@ -57,12 +57,29 @@ class DriveControl {
 };
 
 class Condition {
+ public:
+  virtual bool IsSatisfied() = 0;
 };
 
 class ColorCondition : public Condition {
+ public:
+  ColorCondition(LightEnvironment* light_environment, Color color);
+  bool IsSatisfied();
+
+ private:
+  LightEnvironment* light_environment_;
+  Color color_;
 };
 
 class DistanceCondition : public Condition {
+ public:
+  DistanceCondition(SelfLocalization* self_localization, float distance);
+  bool IsSatisfied();
+
+ private:
+  SelfLocalization* self_localization_;
+  float distance_;
+  float origin_;
 };
 
 class CompositeCondition : public Condition {
