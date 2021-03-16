@@ -12,6 +12,7 @@ SelfLocalization* self_localization;
 LightEnvironment* light_environment;
 Logger* logger;
 Linetracer* linetracer;
+VirtualLinetracer* virtual_linetracer;
 DriveControl* drive_control;
 StateManager* state_manager;
 
@@ -22,6 +23,7 @@ void initialize() {
   light_environment = new LightEnvironment(sensor_io);
   logger = new Logger(self_localization);
   linetracer = new Linetracer(light_environment);
+  virtual_linetracer = new VirtualLinetracer(self_localization);
   drive_control = new DriveControl(motor_io);
   state_manager = new StateManager();
 
@@ -32,6 +34,7 @@ void initialize() {
 void finalize() {
   delete state_manager;
   delete drive_control;
+  delete virtual_linetracer;
   delete linetracer;
   delete logger;
   delete light_environment;
