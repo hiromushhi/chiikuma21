@@ -47,8 +47,9 @@ void finalize() {
 
 void main_task() {
   initialize();
-  sta_cyc(EXEC_ACTION_CYC);
   sta_cyc(UPDATE_INFO_CYC);
+  tslp_tsk(10*1000U);
+  sta_cyc(EXEC_ACTION_CYC);
 
   while (true) {
     if (ev3_button_is_pressed(BACK_BUTTON)) {
