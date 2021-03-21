@@ -19,9 +19,9 @@ Counts MotorIo::GetCounts() {
   return counts;
 }
 
-void MotorIo::SetPwm(int8_t left_pwm, int8_t right_pwm) {
-  ev3_motor_set_power(EV3_PORT_C, left_pwm);
-  ev3_motor_set_power(EV3_PORT_B, right_pwm);
+void MotorIo::SetPower(int8_t power_l, int8_t power_r) {
+  ev3_motor_set_power(EV3_PORT_C, power_l);
+  ev3_motor_set_power(EV3_PORT_B, power_r);
 }
 
 SensorIo::SensorIo() {

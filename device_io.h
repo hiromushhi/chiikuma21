@@ -13,7 +13,7 @@ class MotorIo {
   MotorIo();
   ~MotorIo();
   Counts GetCounts();
-  void SetPwm(int8_t left, int8_t right);
+  void SetPower(int8_t power_l, int8_t power_r);
 };
 
 class SensorIo {

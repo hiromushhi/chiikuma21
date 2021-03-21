@@ -49,9 +49,9 @@ DriveControl::DriveControl(MotorIo* motor_io) {
 }
 
 void DriveControl::Exec(float mv) {
-  int8_t left_pwm = (20 + mv);
-  int8_t right_pwm = (20 - mv);
-  motor_io_->SetPwm(left_pwm, right_pwm);
+  int8_t power_l = (20 + mv);
+  int8_t power_r = (20 - mv);
+  motor_io_->SetPower(power_l, power_r);
 }
 
 ColorCondition::ColorCondition(LightEnvironment* light_environment, Color color) {
