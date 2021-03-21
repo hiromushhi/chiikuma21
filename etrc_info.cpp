@@ -3,16 +3,16 @@
 SelfLocalization::SelfLocalization(MotorIo* motor_io) {
   motor_io_ = motor_io;
   posture_ = {0, 0, 0};
-  prev_count_ = {0, 0};
+  prev_counts_ = {0, 0};
   distance_ = 0;
 }
 
 void SelfLocalization::Update() {
   // 自己位置の更新
-  Count curr_count = motor_io_->GetCounts();
+  Counts curr_counts = motor_io_->GetCounts();
 
-  float dPhiL = (curr_count.l - prev_count_.l) * M_PI / 180;
-  float dPhiR = (curr_count.r - prev_count_.r) * M_PI / 180;
+  float dPhiL = (curr_counts.l - prev_counts_.l) * M_PI / 180;
+  float dPhiR = (curr_counts.r - prev_counts_.r) * M_PI / 180;
 
   float dLL = radius_ * dPhiL;
   float dLR = radius_ * dPhiR;
@@ -30,7 +30,7 @@ void SelfLocalization::Update() {
     posture_.y = posture_.y + dLprime * sin(posture_.theta + dtheta / 2);
   }
 
-  prev_count_ = curr_count;
+  prev_counts_ = curr_counts;
 
   // 走行距離の更新
   distance_ += dL;

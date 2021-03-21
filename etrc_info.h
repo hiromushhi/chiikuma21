@@ -57,7 +57,7 @@ class SelfLocalization {
  private:
   MotorIo* motor_io_;
   Posture posture_;
-  Count prev_count_;
+  Counts prev_counts_;
   float distance_;
   const float radius_ = 50;  // タイヤの半径 [mm]
   const float tread_ = 143;  // 左右の車輪中心間距離 [mm]

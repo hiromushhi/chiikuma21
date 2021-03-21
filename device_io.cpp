@@ -12,11 +12,11 @@ MotorIo::~MotorIo() {
   ev3_motor_stop(EV3_PORT_C, false);
 }
 
-Count MotorIo::GetCounts() {
-  Count count;
-  count.l = ev3_motor_get_counts(EV3_PORT_C);
-  count.r = ev3_motor_get_counts(EV3_PORT_B);
-  return count;
+Counts MotorIo::GetCounts() {
+  Counts counts;
+  counts.l = ev3_motor_get_counts(EV3_PORT_C);
+  counts.r = ev3_motor_get_counts(EV3_PORT_B);
+  return counts;
 }
 
 void MotorIo::SetPwm(int8_t left_pwm, int8_t right_pwm) {

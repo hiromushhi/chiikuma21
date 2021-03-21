@@ -3,7 +3,7 @@
 
 #include "ev3api.h"
 
-struct Count {
+struct Counts {
   int32_t l;
   int32_t r;
 };
@@ -12,7 +12,7 @@ class MotorIo {
  public:
   MotorIo();
   ~MotorIo();
-  Count GetCounts();
+  Counts GetCounts();
   void SetPwm(int8_t left, int8_t right);
 };
 
