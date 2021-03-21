@@ -28,11 +28,11 @@ class LightEnvironment {
  public:
   LightEnvironment(SensorIo* sensor_io);
   void Update();
-  void SetColorReference(Color c, Hsv data);
   Color GetColor();
   Hsv GetHsv();
 
  private:
+  void SetColorReference(Color c, Hsv data);
   void UpdateHsv(rgb_raw_t val);
   void UpdateColor();
   SensorIo* sensor_io_;

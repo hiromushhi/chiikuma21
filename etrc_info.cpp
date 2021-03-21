@@ -1,49 +1,5 @@
 #include "etrc_info.h"
 
-SelfLocalization::SelfLocalization(MotorIo* motor_io) {
-  motor_io_ = motor_io;
-  posture_ = {0, 0, 0};
-  prev_counts_ = {0, 0};
-  distance_ = 0;
-}
-
-void SelfLocalization::Update() {
-  // 自己位置の更新
-  Counts curr_counts = motor_io_->GetCounts();
-
-  float dPhiL = (curr_counts.l - prev_counts_.l) * M_PI / 180;
-  float dPhiR = (curr_counts.r - prev_counts_.r) * M_PI / 180;
-
-  float dLL = radius_ * dPhiL;
-  float dLR = radius_ * dPhiR;
-  float dL = (dLR + dLL) / 2;
-  float dtheta = (dLR - dLL) / tread_;
-
-  posture_.theta = posture_.theta + dtheta;
-  if (dtheta < dtheta_th_) {
-    posture_.x = posture_.x + dL * cos(posture_.theta + dtheta / 2);
-    posture_.y = posture_.y + dL * sin(posture_.theta + dtheta / 2);
-  } else {
-    float rho = dL / dtheta;
-    float dLprime = 2 * rho * sin(dtheta / 2);
-    posture_.x = posture_.x + dLprime * cos(posture_.theta + dtheta / 2);
-    posture_.y = posture_.y + dLprime * sin(posture_.theta + dtheta / 2);
-  }
-
-  prev_counts_ = curr_counts;
-
-  // 走行距離の更新
-  distance_ += dL;
-}
-
-Posture SelfLocalization::GetPosture() {
-  return posture_;
-}
-
-float SelfLocalization::GetDistance() {
-  return distance_;
-}
-
 LightEnvironment::LightEnvironment(SensorIo* sensor_io) {
   sensor_io_ = sensor_io;
 
@@ -60,31 +16,6 @@ void LightEnvironment::Update() {
   rgb_raw_t val = sensor_io_->GetRgbRaw();
   UpdateHsv(val);
   UpdateColor();
-
-  // debug
-  // char str[32];
-  // sprintf(str, "H:%5f", curr_hsv_.h);
-  // ev3_lcd_draw_string(str, 10, 10);
-  // sprintf(str, "S:%5f", curr_hsv_.s);
-  // ev3_lcd_draw_string(str, 10, 30);
-  // sprintf(str, "V:%5f", curr_hsv_.v);
-  // ev3_lcd_draw_string(str, 10, 50);
-
-  // switch (curr_color_) {
-  //   case kGreen:  sprintf(str, "Green "); break;
-  //   case kBlack:  sprintf(str, "Black "); break;
-  //   case kRed:    sprintf(str, "Red   "); break;
-  //   case kYellow: sprintf(str, "Yellow"); break;
-  //   case kBlue:   sprintf(str, "Blue  "); break;
-  //   case kWhite:  sprintf(str, "White "); break;
-  //   case kNone:   sprintf(str, "None  "); break;
-  //   default:      sprintf(str, "Nonen "); break;
-  // }
-  // ev3_lcd_draw_string(str, 10, 70);
-}
-
-void LightEnvironment::SetColorReference(Color c, Hsv data) {
-  color_ref_[c] = data;
 }
 
 Color LightEnvironment::GetColor() {
@@ -93,6 +24,10 @@ Color LightEnvironment::GetColor() {
 
 Hsv LightEnvironment::GetHsv() {
   return curr_hsv_;
+}
+
+void LightEnvironment::SetColorReference(Color c, Hsv data) {
+  color_ref_[c] = data;
 }
 
 void LightEnvironment::UpdateHsv(rgb_raw_t val) {
@@ -186,3 +121,48 @@ void Logger::Update() {
   Posture posture = self_localization_->GetPosture();
   postures_.push_back(posture);
 }
+
+SelfLocalization::SelfLocalization(MotorIo* motor_io) {
+  motor_io_ = motor_io;
+  posture_ = {0, 0, 0};
+  prev_counts_ = {0, 0};
+  distance_ = 0;
+}
+
+void SelfLocalization::Update() {
+  // 自己位置の更新
+  Counts curr_counts = motor_io_->GetCounts();
+
+  float dPhiL = (curr_counts.l - prev_counts_.l) * M_PI / 180;
+  float dPhiR = (curr_counts.r - prev_counts_.r) * M_PI / 180;
+
+  float dLL = radius_ * dPhiL;
+  float dLR = radius_ * dPhiR;
+  float dL = (dLR + dLL) / 2;
+  float dtheta = (dLR - dLL) / tread_;
+
+  posture_.theta = posture_.theta + dtheta;
+  if (dtheta < dtheta_th_) {
+    posture_.x = posture_.x + dL * cos(posture_.theta + dtheta / 2);
+    posture_.y = posture_.y + dL * sin(posture_.theta + dtheta / 2);
+  } else {
+    float rho = dL / dtheta;
+    float dLprime = 2 * rho * sin(dtheta / 2);
+    posture_.x = posture_.x + dLprime * cos(posture_.theta + dtheta / 2);
+    posture_.y = posture_.y + dLprime * sin(posture_.theta + dtheta / 2);
+  }
+
+  prev_counts_ = curr_counts;
+
+  // 走行距離の更新
+  distance_ += dL;
+}
+
+Posture SelfLocalization::GetPosture() {
+  return posture_;
+}
+
+float SelfLocalization::GetDistance() {
+  return distance_;
+}
+
