@@ -75,12 +75,12 @@ class Section {
   virtual void Exec() = 0;
 };
 
-class LinetraceSection : public Section {
+class RlSection : public Section {
  public:
   void Exec();
 };
 
-class VirtualLinetraceSection : public Section {
+class VlSection : public Section {
  public:
   void Exec();
 };

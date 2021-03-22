@@ -2,7 +2,7 @@
 
 Scenario::Scenario() {
   Section* s;
-  s = new LinetraceSection();
+  s = new RlSection();
   sections_.push_back(s);
 }
 

@@ -81,8 +81,8 @@ bool DistanceCondition::IsSatisfied() {
   }
 }
 
-void LinetraceSection::Exec() {
+void RlSection::Exec() {
 }
 
-void VirtualLinetraceSection::Exec() {
+void VlSection::Exec() {
 }
