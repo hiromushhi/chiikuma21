@@ -41,14 +41,14 @@ class OvDriver {
   MotorIo* motor_io_;
 };
 
-class Condition {
+class Cond {
  public:
   virtual bool IsSatisfied() = 0;
 };
 
-class ColorCondition : public Condition {
+class ColorCond : public Cond {
  public:
-  ColorCondition(Luminous* luminous, Color color);
+  ColorCond(Luminous* luminous, Color color);
   bool IsSatisfied();
 
  private:
@@ -56,9 +56,9 @@ class ColorCondition : public Condition {
   Color color_;
 };
 
-class DistanceCondition : public Condition {
+class DistCond : public Cond {
  public:
-  DistanceCondition(Localize* localize, float distance);
+  DistCond(Localize* localize, float distance);
   bool IsSatisfied();
 
  private:
@@ -67,7 +67,7 @@ class DistanceCondition : public Condition {
   float origin_;
 };
 
-class CompositeCondition : public Condition {
+class CompCond : public Cond {
 };
 
 class Section {
