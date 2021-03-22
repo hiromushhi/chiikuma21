@@ -12,12 +12,12 @@ enum Edge {
 
 class Linetracer {
  public:
-  Linetracer(LightEnvironment* light_environment);
+  Linetracer(Luminous* luminous);
   ~Linetracer();
   float Exec();
 
  private:
-  LightEnvironment* light_environment_;
+  Luminous* luminous_;
   PidControl* pid_control_;
 };
 
@@ -48,11 +48,11 @@ class Condition {
 
 class ColorCondition : public Condition {
  public:
-  ColorCondition(LightEnvironment* light_environment, Color color);
+  ColorCondition(Luminous* luminous, Color color);
   bool IsSatisfied();
 
  private:
-  LightEnvironment* light_environment_;
+  Luminous* luminous_;
   Color color_;
 };
 

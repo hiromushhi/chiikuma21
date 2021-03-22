@@ -24,9 +24,9 @@ enum Color {
   kColorNum
 };
 
-class LightEnvironment {
+class Luminous {
  public:
-  LightEnvironment(SensorIo* sensor_io);
+  Luminous(SensorIo* sensor_io);
   void Update();
   Color GetColor();
   Hsv GetHsv();

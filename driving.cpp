@@ -1,7 +1,7 @@
 #include "driving.h"
 
-Linetracer::Linetracer(LightEnvironment* light_environment) {
-  light_environment_ = light_environment;
+Linetracer::Linetracer(Luminous* luminous) {
+  luminous_ = luminous;
   pid_control_ = new PidControl(0.2, 0.0, 0.01, 0.01);
 }
 
@@ -10,7 +10,7 @@ Linetracer::~Linetracer() {
 }
 
 float Linetracer::Exec() {
-  Hsv curr_hsv = light_environment_->GetHsv();
+  Hsv curr_hsv = luminous_->GetHsv();
 
   float mv = pid_control_->GetMv(curr_hsv.v, 50);
   return mv;
@@ -48,13 +48,13 @@ void DriveControl::Exec(float mv) {
   motor_io_->SetPower(power_l, power_r);
 }
 
-ColorCondition::ColorCondition(LightEnvironment* light_environment, Color color) {
-  light_environment_ = light_environment;
+ColorCondition::ColorCondition(Luminous* luminous, Color color) {
+  luminous_ = luminous;
   color_ = color;
 }
 
 bool ColorCondition::IsSatisfied() {
-  Color curr_color = light_environment_->GetColor();
+  Color curr_color = luminous_->GetColor();
   if (curr_color == color_) {
     return true;
   } else {

@@ -1,6 +1,6 @@
 #include "etrc_info.h"
 
-LightEnvironment::LightEnvironment(SensorIo* sensor_io) {
+Luminous::Luminous(SensorIo* sensor_io) {
   sensor_io_ = sensor_io;
 
   SetColorReference(kGreen, {120, 0, 0});
@@ -12,25 +12,25 @@ LightEnvironment::LightEnvironment(SensorIo* sensor_io) {
   SetColorReference(kNone, {0, 0, 0});
 }
 
-void LightEnvironment::Update() {
+void Luminous::Update() {
   rgb_raw_t val = sensor_io_->GetRgbRaw();
   UpdateHsv(val);
   UpdateColor();
 }
 
-Color LightEnvironment::GetColor() {
+Color Luminous::GetColor() {
   return curr_color_;
 }
 
-Hsv LightEnvironment::GetHsv() {
+Hsv Luminous::GetHsv() {
   return curr_hsv_;
 }
 
-void LightEnvironment::SetColorReference(Color c, Hsv data) {
+void Luminous::SetColorReference(Color c, Hsv data) {
   color_ref_[c] = data;
 }
 
-void LightEnvironment::UpdateHsv(rgb_raw_t val) {
+void Luminous::UpdateHsv(rgb_raw_t val) {
   float r = static_cast<float>(val.r);
   float g = static_cast<float>(val.g);
   float b = static_cast<float>(val.b);
@@ -75,7 +75,7 @@ void LightEnvironment::UpdateHsv(rgb_raw_t val) {
   curr_hsv_.v = v;
 }
 
-void LightEnvironment::UpdateColor() {
+void Luminous::UpdateColor() {
   float sat_white = color_ref_[kWhite].s;
   float val_black = color_ref_[kBlack].v;
   float hue_green = color_ref_[kGreen].h;
