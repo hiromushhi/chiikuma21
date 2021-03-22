@@ -10,21 +10,6 @@ enum Edge {
   kEdgeNum
 };
 
-class Section {
- public:
-  virtual void Exec() = 0;
-};
-
-class LinetraceSection : public Section {
- public:
-  void Exec();
-};
-
-class VirtualLinetraceSection : public Section {
- public:
-  void Exec();
-};
-
 class Linetracer {
  public:
   Linetracer(LightEnvironment* light_environment);
@@ -83,6 +68,21 @@ class DistanceCondition : public Condition {
 };
 
 class CompositeCondition : public Condition {
+};
+
+class Section {
+ public:
+  virtual void Exec() = 0;
+};
+
+class LinetraceSection : public Section {
+ public:
+  void Exec();
+};
+
+class VirtualLinetraceSection : public Section {
+ public:
+  void Exec();
 };
 
 #endif  // CHIIKUMA21_DRIVING_H_

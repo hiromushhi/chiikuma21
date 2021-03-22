@@ -1,11 +1,5 @@
 #include "driving.h"
 
-void LinetraceSection::Exec() {
-}
-
-void VirtualLinetraceSection::Exec() {
-}
-
 Linetracer::Linetracer(LightEnvironment* light_environment) {
   light_environment_ = light_environment;
   pid_control_ = new PidControl(0.2, 0.0, 0.01, 0.01);
@@ -85,4 +79,10 @@ bool DistanceCondition::IsSatisfied() {
   } else {
     return false;
   }
+}
+
+void LinetraceSection::Exec() {
+}
+
+void VirtualLinetraceSection::Exec() {
 }
