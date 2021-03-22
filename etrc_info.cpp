@@ -104,14 +104,14 @@ void LightEnvironment::UpdateColor() {
   }
 }
 
-SelfLocalization::SelfLocalization(MotorIo* motor_io) {
+Localize::Localize(MotorIo* motor_io) {
   motor_io_ = motor_io;
   posture_ = {0, 0, 0};
   prev_counts_ = {0, 0};
   distance_ = 0;
 }
 
-void SelfLocalization::Update() {
+void Localize::Update() {
   // 自己位置の更新
   Counts curr_counts = motor_io_->GetCounts();
 
@@ -140,16 +140,16 @@ void SelfLocalization::Update() {
   distance_ = ((curr_counts.l + curr_counts.r) / 2) * M_PI / 180 * radius_;
 }
 
-Posture SelfLocalization::GetPosture() {
+Posture Localize::GetPosture() {
   return posture_;
 }
 
-float SelfLocalization::GetDistance() {
+float Localize::GetDistance() {
   return distance_;
 }
 
-Logger::Logger(SelfLocalization* self_localization) {
-  self_localization_ = self_localization;
+Logger::Logger(Localize* localize) {
+  localize_ = localize;
 }
 
 Logger::~Logger() {
@@ -162,6 +162,6 @@ Logger::~Logger() {
 }
 
 void Logger::Update() {
-  Posture posture = self_localization_->GetPosture();
+  Posture posture = localize_->GetPosture();
   postures_.push_back(posture);
 }

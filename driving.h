@@ -23,12 +23,12 @@ class Linetracer {
 
 class VirtualLinetracer {
  public:
-  VirtualLinetracer(SelfLocalization* self_localization);
+  VirtualLinetracer(Localize* localize);
   ~VirtualLinetracer();
   float Exec();
 
  private:
-  SelfLocalization* self_localization_;
+  Localize* localize_;
   PidControl* pid_control_;
 };
 
@@ -58,11 +58,11 @@ class ColorCondition : public Condition {
 
 class DistanceCondition : public Condition {
  public:
-  DistanceCondition(SelfLocalization* self_localization, float distance);
+  DistanceCondition(Localize* localize, float distance);
   bool IsSatisfied();
 
  private:
-  SelfLocalization* self_localization_;
+  Localize* localize_;
   float distance_;
   float origin_;
 };

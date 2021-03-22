@@ -16,8 +16,8 @@ float Linetracer::Exec() {
   return mv;
 }
 
-VirtualLinetracer::VirtualLinetracer(SelfLocalization* self_localization) {
-  self_localization_ = self_localization;
+VirtualLinetracer::VirtualLinetracer(Localize* localize) {
+  localize_ = localize;
   pid_control_ = new PidControl(0.2, 0.0, 0.01, 0.01);
 }
 
@@ -26,7 +26,7 @@ VirtualLinetracer::~VirtualLinetracer() {
 }
 
 float VirtualLinetracer::Exec() {
-  // Posture posture = self_localization_->GetPosture();
+  // Posture posture = localize_->GetPosture();
 
   // static Posture orbit = {0, 0, 0};
   // orbit.x = posture.x;
@@ -62,18 +62,18 @@ bool ColorCondition::IsSatisfied() {
   }
 }
 
-DistanceCondition::DistanceCondition(SelfLocalization* self_localization, float distance) {
-  self_localization_ = self_localization;
+DistanceCondition::DistanceCondition(Localize* localize, float distance) {
+  localize_ = localize;
   distance_ = distance;
   origin_ = -1;
 }
 
 bool DistanceCondition::IsSatisfied() {
   if (origin_ == -1) {
-    self_localization_->GetDistance();
+    localize_->GetDistance();
   }
 
-  float dL = self_localization_->GetDistance() - origin_;
+  float dL = localize_->GetDistance() - origin_;
   if (dL >= distance_) {
     return true;
   } else {

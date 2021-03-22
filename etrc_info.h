@@ -47,9 +47,9 @@ struct Posture {
   float theta;
 };
 
-class SelfLocalization {
+class Localize {
  public:
-  SelfLocalization(MotorIo* motor_io);
+  Localize(MotorIo* motor_io);
   void Update();
   Posture GetPosture();
   float GetDistance();
@@ -66,12 +66,12 @@ class SelfLocalization {
 
 class Logger {
  public:
-  Logger(SelfLocalization* self_localization);
+  Logger(Localize* localize);
   ~Logger();
   void Update();
 
  private:
-  SelfLocalization* self_localization_;
+  Localize* localize_;
   std::vector<Posture> postures_;
 };
 

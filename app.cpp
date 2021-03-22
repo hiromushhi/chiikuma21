@@ -8,7 +8,7 @@
 
 MotorIo* motor_io;
 SensorIo* sensor_io;
-SelfLocalization* self_localization;
+Localize* localize;
 LightEnvironment* light_environment;
 Logger* logger;
 Linetracer* linetracer;
@@ -19,11 +19,11 @@ StateManager* state_manager;
 void initialize() {
   motor_io = new MotorIo();
   sensor_io = new SensorIo();
-  self_localization = new SelfLocalization(motor_io);
+  localize = new Localize(motor_io);
   light_environment = new LightEnvironment(sensor_io);
-  logger = new Logger(self_localization);
+  logger = new Logger(localize);
   linetracer = new Linetracer(light_environment);
-  virtual_linetracer = new VirtualLinetracer(self_localization);
+  virtual_linetracer = new VirtualLinetracer(localize);
   drive_control = new DriveControl(motor_io);
   state_manager = new StateManager();
 
@@ -38,7 +38,7 @@ void finalize() {
   delete linetracer;
   delete logger;
   delete light_environment;
-  delete self_localization;
+  delete localize;
   delete sensor_io;
   delete motor_io;
 
@@ -71,7 +71,7 @@ void exec_action_task() {
 }
 
 void update_info_task() {
-  self_localization->Update();
+  localize->Update();
   light_environment->Update();
   logger->Update();
 }
