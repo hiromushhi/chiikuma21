@@ -1,31 +1,31 @@
 #include "driving.h"
 
-Linetracer::Linetracer(Luminous* luminous) {
+RlTracer::RlTracer(Luminous* luminous) {
   luminous_ = luminous;
   pid_control_ = new PidControl(0.2, 0.0, 0.01, 0.01);
 }
 
-Linetracer::~Linetracer() {
+RlTracer::~RlTracer() {
   delete pid_control_;
 }
 
-float Linetracer::Exec() {
+float RlTracer::Exec() {
   Hsv curr_hsv = luminous_->GetHsv();
 
   float mv = pid_control_->GetMv(curr_hsv.v, 50);
   return mv;
 }
 
-VirtualLinetracer::VirtualLinetracer(Localize* localize) {
+VlTracer::VlTracer(Localize* localize) {
   localize_ = localize;
   pid_control_ = new PidControl(0.2, 0.0, 0.01, 0.01);
 }
 
-VirtualLinetracer::~VirtualLinetracer() {
+VlTracer::~VlTracer() {
   delete pid_control_;
 }
 
-float VirtualLinetracer::Exec() {
+float VlTracer::Exec() {
   // Posture posture = localize_->GetPosture();
 
   // static Posture orbit = {0, 0, 0};

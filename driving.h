@@ -10,10 +10,10 @@ enum Edge {
   kEdgeNum
 };
 
-class Linetracer {
+class RlTracer {
  public:
-  Linetracer(Luminous* luminous);
-  ~Linetracer();
+  RlTracer(Luminous* luminous);
+  ~RlTracer();
   float Exec();
 
  private:
@@ -21,10 +21,10 @@ class Linetracer {
   PidControl* pid_control_;
 };
 
-class VirtualLinetracer {
+class VlTracer {
  public:
-  VirtualLinetracer(Localize* localize);
-  ~VirtualLinetracer();
+  VlTracer(Localize* localize);
+  ~VlTracer();
   float Exec();
 
  private:
