@@ -104,24 +104,6 @@ void LightEnvironment::UpdateColor() {
   }
 }
 
-Logger::Logger(SelfLocalization* self_localization) {
-  self_localization_ = self_localization;
-}
-
-Logger::~Logger() {
-  FILE* fp = fopen("log.csv", "w");
-  for (size_t i = 0; i < postures_.size(); i++) {
-    Posture p = postures_[i];
-    fprintf(fp, "%.2f,%.2f\n", p.x, p.y);
-  }
-  fclose(fp);
-}
-
-void Logger::Update() {
-  Posture posture = self_localization_->GetPosture();
-  postures_.push_back(posture);
-}
-
 SelfLocalization::SelfLocalization(MotorIo* motor_io) {
   motor_io_ = motor_io;
   posture_ = {0, 0, 0};
@@ -155,7 +137,7 @@ void SelfLocalization::Update() {
   prev_counts_ = curr_counts;
 
   // 走行距離の更新
-  distance_ += dL;
+  distance_ = ((curr_counts.l + curr_counts.r) / 2) * M_PI / 180 * radius_;
 }
 
 Posture SelfLocalization::GetPosture() {
@@ -166,3 +148,20 @@ float SelfLocalization::GetDistance() {
   return distance_;
 }
 
+Logger::Logger(SelfLocalization* self_localization) {
+  self_localization_ = self_localization;
+}
+
+Logger::~Logger() {
+  FILE* fp = fopen("log.csv", "w");
+  for (size_t i = 0; i < postures_.size(); i++) {
+    Posture p = postures_[i];
+    fprintf(fp, "%.2f,%.2f\n", p.x, p.y);
+  }
+  fclose(fp);
+}
+
+void Logger::Update() {
+  Posture posture = self_localization_->GetPosture();
+  postures_.push_back(posture);
+}
