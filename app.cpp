@@ -13,7 +13,7 @@ Luminous* luminous;
 Logger* logger;
 RlTracer* rl_tracer;
 VlTracer* vl_tracer;
-DriveControl* drive_control;
+OvDriver* ov_driver;
 StateManager* state_manager;
 
 void initialize() {
@@ -24,7 +24,7 @@ void initialize() {
   logger = new Logger(localize);
   rl_tracer = new RlTracer(luminous);
   vl_tracer = new VlTracer(localize);
-  drive_control = new DriveControl(motor_io);
+  ov_driver = new OvDriver(motor_io);
   state_manager = new StateManager();
 
   ev3_lcd_set_font(EV3_FONT_MEDIUM);
@@ -33,7 +33,7 @@ void initialize() {
 
 void finalize() {
   delete state_manager;
-  delete drive_control;
+  delete ov_driver;
   delete vl_tracer;
   delete rl_tracer;
   delete logger;
@@ -67,7 +67,7 @@ void exec_action_task() {
   state_manager->Exec();
 
   float mv = rl_tracer->Exec();
-  drive_control->Exec(mv);
+  ov_driver->Exec(mv);
 }
 
 void update_info_task() {

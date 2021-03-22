@@ -38,11 +38,11 @@ float VlTracer::Exec() {
   return 0;
 }
 
-DriveControl::DriveControl(MotorIo* motor_io) {
+OvDriver::OvDriver(MotorIo* motor_io) {
   motor_io_ = motor_io;
 }
 
-void DriveControl::Exec(float mv) {
+void OvDriver::Exec(float mv) {
   int8_t power_l = (20 + mv);
   int8_t power_r = (20 - mv);
   motor_io_->SetPower(power_l, power_r);

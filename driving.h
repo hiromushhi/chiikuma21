@@ -32,9 +32,9 @@ class VlTracer {
   PidControl* pid_control_;
 };
 
-class DriveControl {
+class OvDriver {
  public:
-  DriveControl(MotorIo* motor_io);
+  OvDriver(MotorIo* motor_io);
   void Exec(float mv);
 
  private:
