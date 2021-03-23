@@ -3,13 +3,13 @@
 Luminous::Luminous(SensorIo* sensor_io) {
   sensor_io_ = sensor_io;
 
-  SetColorReference(kGreen, {120, 0, 0});
-  SetColorReference(kBlack, {0, 0, 0});
-  SetColorReference(kRed, {0, 0, 0});
-  SetColorReference(kYellow, {50, 0, 0});
-  SetColorReference(kBlue, {210, 0, 0});
-  SetColorReference(kWhite, {0, 20, 0});
-  SetColorReference(kNone, {0, 0, 0});
+  SetColorReference(kGreen, (Hsv){120, 0, 0});
+  SetColorReference(kBlack, (Hsv){0, 0, 0});
+  SetColorReference(kRed, (Hsv){0, 0, 0});
+  SetColorReference(kYellow, (Hsv){50, 0, 0});
+  SetColorReference(kBlue, (Hsv){210, 0, 0});
+  SetColorReference(kWhite, (Hsv){0, 20, 0});
+  SetColorReference(kNone, (Hsv){0, 0, 0});
 }
 
 void Luminous::Update() {
@@ -106,8 +106,8 @@ void Luminous::UpdateColor() {
 
 Localize::Localize(MotorIo* motor_io) {
   motor_io_ = motor_io;
-  posture_ = {0, 0, 0};
-  prev_counts_ = {0, 0};
+  posture_ = (Posture){0, 0, 0};
+  prev_counts_ = (Counts){0, 0};
   distance_ = 0;
 
   radius_ = 50;  // タイヤの半径 [mm]
