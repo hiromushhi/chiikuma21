@@ -109,6 +109,10 @@ Localize::Localize(MotorIo* motor_io) {
   posture_ = {0, 0, 0};
   prev_counts_ = {0, 0};
   distance_ = 0;
+
+  radius_ = 50;  // タイヤの半径 [mm]
+  tread_ = 143;  // 左右の車輪中心間距離 [mm]
+  dtheta_th_ = 0.001;  // dthetaが十分小さいか判定する閾値
 }
 
 void Localize::Update() {

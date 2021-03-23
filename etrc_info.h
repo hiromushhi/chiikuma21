@@ -2,6 +2,7 @@
 #define CHIIKUMA21_ETRC_INFO_H_
 
 #include <math.h>
+
 #include <vector>
 
 #include "ev3api.h"
@@ -59,9 +60,9 @@ class Localize {
   Posture posture_;
   Counts prev_counts_;
   float distance_;
-  const float radius_ = 50;  // タイヤの半径 [mm]
-  const float tread_ = 143;  // 左右の車輪中心間距離 [mm]
-  const float dtheta_th_ = 0.001;  // dthetaが十分小さいか判定する閾値
+  float radius_;  // タイヤの半径 [mm]
+  float tread_;  // 左右の車輪中心間距離 [mm]
+  float dtheta_th_;  // dthetaが十分小さいか判定する閾値
 };
 
 class Logger {
