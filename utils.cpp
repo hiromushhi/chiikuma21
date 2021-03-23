@@ -3,6 +3,9 @@
 PidControl::PidControl(float kp, float ki, float kd, float dt) {
   SetGain(kp, ki, kd);
   SetPeriod(dt);
+  diff0_ = 0;
+  diff1_ = 0;
+  integral_ = 0;
 }
 
 void PidControl::SetGain(float kp, float ki, float kd) {

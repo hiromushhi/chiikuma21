@@ -15,9 +15,9 @@ class PidControl {
   float ki_;
   float kd_;
   float dt_;
-  float diff0_ = 0;
-  float diff1_ = 0;
-  float integral_ = 0;
+  float diff0_;
+  float diff1_;
+  float integral_;
 };
 
 #endif  // CHIIKUMA21_UTILS_H_
