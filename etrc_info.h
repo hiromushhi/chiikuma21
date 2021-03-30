@@ -65,15 +65,4 @@ class Localize {
   float dtheta_th_;  // dthetaが十分小さいか判定する閾値
 };
 
-class Logger {
- public:
-  Logger(Localize* localize);
-  ~Logger();
-  void Update();
-
- private:
-  Localize* localize_;
-  std::vector<Posture> postures_;
-};
-
 #endif  // CHIIKUMA21_ETRC_INFO_H_
