@@ -38,8 +38,11 @@ void OvDriver::Drive(float mv) {
   motor_io_->SetPower(power_l, power_r);
 }
 
-ColorCond::ColorCond(Luminous* luminous, Color color) {
+ColorCond::ColorCond(Luminous* luminous) {
   luminous_ = luminous;
+}
+
+void ColorCond::SetColor(Color color) {
   color_ = color;
 }
 
@@ -52,10 +55,13 @@ bool ColorCond::IsSatisfied() {
   }
 }
 
-DistCond::DistCond(Localize* localize, float distance) {
+DistCond::DistCond(Localize* localize) {
   localize_ = localize;
-  distance_ = distance;
   origin_ = -1;
+}
+
+void DistCond::SetDistance(float distance) {
+  distance_ = distance;
 }
 
 bool DistCond::IsSatisfied() {

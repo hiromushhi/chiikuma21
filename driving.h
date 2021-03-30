@@ -4,10 +4,15 @@
 #include "etrc_info.h"
 #include "utils.h"
 
-class RlTracer {
+class Tracer {
+ public:
+  virtual float Run() = 0;
+};
+
+class RlTracer : public Tracer {
  public:
   RlTracer(Luminous* luminous);
-  ~RlTracer();
+  virtual ~RlTracer();
   float Run();
 
  private:
@@ -15,10 +20,10 @@ class RlTracer {
   PidControl* pid_control_;
 };
 
-class VlTracer {
+class VlTracer : public Tracer {
  public:
   VlTracer(Localize* localize);
-  ~VlTracer();
+  virtual ~VlTracer();
   float Run();
 
  private:
@@ -42,7 +47,8 @@ class Cond {
 
 class ColorCond : public Cond {
  public:
-  ColorCond(Luminous* luminous, Color color);
+  ColorCond(Luminous* luminous);
+  void SetColor(Color color);
   bool IsSatisfied();
 
  private:
@@ -52,7 +58,8 @@ class ColorCond : public Cond {
 
 class DistCond : public Cond {
  public:
-  DistCond(Localize* localize, float distance);
+  DistCond(Localize* localize);
+  void SetDistance(float distance);
   bool IsSatisfied();
 
  private:
