@@ -10,7 +10,6 @@ MotorIo* motor_io;
 SensorIo* sensor_io;
 Localize* localize;
 Luminous* luminous;
-Logger* logger;
 RlTracer* rl_tracer;
 VlTracer* vl_tracer;
 OvDriver* ov_driver;
@@ -21,7 +20,6 @@ void initialize() {
   sensor_io = new SensorIo();
   localize = new Localize(motor_io);
   luminous = new Luminous(sensor_io);
-  logger = new Logger(localize);
   rl_tracer = new RlTracer(luminous);
   vl_tracer = new VlTracer(localize);
   ov_driver = new OvDriver(motor_io);
@@ -36,7 +34,6 @@ void finalize() {
   delete ov_driver;
   delete vl_tracer;
   delete rl_tracer;
-  delete logger;
   delete luminous;
   delete localize;
   delete sensor_io;
@@ -64,14 +61,9 @@ void main_task() {
 }
 
 void exec_action_task() {
-  state_manager->Exec();
-
-  float mv = rl_tracer->Exec();
-  ov_driver->Exec(mv);
 }
 
 void update_info_task() {
   localize->Update();
   luminous->Update();
-  logger->Update();
 }
