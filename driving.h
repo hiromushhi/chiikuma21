@@ -14,9 +14,9 @@ class RlTracer : public Tracer {
   RlTracer(Luminous* luminous);
   virtual ~RlTracer();
   float Run();
+  Luminous* luminous_;
 
  private:
-  Luminous* luminous_;
   PidControl* pid_control_;
 };
 
@@ -25,16 +25,16 @@ class VlTracer : public Tracer {
   VlTracer(Localize* localize);
   virtual ~VlTracer();
   float Run();
+  Localize* localize_;
 
  private:
-  Localize* localize_;
   PidControl* pid_control_;
 };
 
 class OvDriver {
  public:
   OvDriver(MotorIo* motor_io);
-  void Drive(float mv);
+  void Drive(float base, float mv);
 
  private:
   MotorIo* motor_io_;

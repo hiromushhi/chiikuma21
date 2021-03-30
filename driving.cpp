@@ -32,9 +32,9 @@ OvDriver::OvDriver(MotorIo* motor_io) {
   motor_io_ = motor_io;
 }
 
-void OvDriver::Drive(float mv) {
-  int8_t power_l = (20 + mv);
-  int8_t power_r = (20 - mv);
+void OvDriver::Drive(float base, float mv) {
+  int8_t power_l = (base + mv);
+  int8_t power_r = (base - mv);
   motor_io_->SetPower(power_l, power_r);
 }
 
@@ -66,7 +66,7 @@ void DistCond::SetDistance(float distance) {
 
 bool DistCond::IsSatisfied() {
   if (origin_ == -1) {
-    localize_->GetDistance();
+    origin_ = localize_->GetDistance();
   }
 
   float dL = localize_->GetDistance() - origin_;
