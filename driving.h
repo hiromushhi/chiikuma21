@@ -48,6 +48,7 @@ class Cond {
 class ColorCond : public Cond {
  public:
   ColorCond(Luminous* luminous);
+  virtual ~ColorCond() {};
   void SetColor(Color color);
   bool IsSatisfied();
 
@@ -59,6 +60,7 @@ class ColorCond : public Cond {
 class DistCond : public Cond {
  public:
   DistCond(Localize* localize);
+  virtual ~DistCond() {};
   void SetDistance(float distance);
   bool IsSatisfied();
 

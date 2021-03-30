@@ -14,6 +14,8 @@ Scenario::Scenario(RlTracer* rl_tracer, VlTracer* vl_tracer, OvDriver* ov_driver
 }
 
 Scenario::~Scenario() {
+  delete dist_cond_;
+  delete color_cond_;
 }
 
 void Scenario::Exec() {
