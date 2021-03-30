@@ -23,7 +23,7 @@ void initialize() {
   rl_tracer = new RlTracer(luminous);
   vl_tracer = new VlTracer(localize);
   ov_driver = new OvDriver(motor_io);
-  scenario = new Scenario();
+  scenario = new Scenario(rl_tracer, vl_tracer, ov_driver);
 
   ev3_lcd_set_font(EV3_FONT_MEDIUM);
   ev3_led_set_color(LED_ORANGE);
