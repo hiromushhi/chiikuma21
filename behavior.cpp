@@ -1,9 +1,9 @@
 #include "behavior.h"
 
 Scenario::Scenario() {
-  Section* s;
-  s = new RlSection();
-  sections_.push_back(s);
+  // Section* s;
+  // s = new RlSection();
+  // sections_.push_back(s);
 }
 
 void Scenario::Exec() {
