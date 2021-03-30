@@ -35,7 +35,7 @@ class Scenario {
 
  private:
   void SetDefault(SecParam* sec_param);
-  void ExecSection();
+  void ExecSection(SecParam* sec_param);
   std::list<SecParam> sec_params_;
   Tracer* tracer_;
   RlTracer* rl_tracer_;

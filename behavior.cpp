@@ -9,8 +9,8 @@ Scenario::Scenario(RlTracer* rl_tracer, VlTracer* vl_tracer, OvDriver* ov_driver
   vl_tracer_ = vl_tracer;
   ov_driver_ = ov_driver;
   cond_ = NULL;
-  color_cond_ = new ColorCond(NULL);
-  dist_cond_ = new DistCond(NULL);
+  color_cond_ = new ColorCond(rl_tracer_->luminous_);
+  dist_cond_ = new DistCond(vl_tracer_->localize_);
 }
 
 Scenario::~Scenario() {
@@ -21,25 +21,48 @@ Scenario::~Scenario() {
 void Scenario::Exec() {
   if (sec_params_.size() > 0) {
     SecParam& sec_param = sec_params_.front();
-
     if (!sec_param.started) {
       SetDefault(&sec_param);
       sec_param.started = true;
     }
 
-    ExecSection();
+    ExecSection(&sec_param);
 
     if (sec_param.finished) {
       sec_params_.pop_front();
     }
+  } else {
+    tracer_ = NULL;
+    cond_ = NULL;
+    ov_driver_->Drive(0, 0);
   }
 }
 
 void Scenario::SetDefault(SecParam* sec_param) {
+  if (sec_param->line == kReal) {
+    tracer_ = rl_tracer_;
+  } else {
+    tracer_ = vl_tracer_;
+  }
+
+  if (sec_param->end == kColor) {
+    color_cond_->SetColor(sec_param->color);
+    cond_ = color_cond_;
+  } else {
+    dist_cond_->SetDistance(sec_param->dist);
+    cond_ = dist_cond_;
+  }
 }
 
-void Scenario::ExecSection() {
-  if (tracer_ != NULL) {
-    tracer_->Run();
+void Scenario::ExecSection(SecParam* sec_param) {
+  if (tracer_ != NULL && cond_ != NULL) {
+    float mv = tracer_->Run();
+    ov_driver_->Drive(20, mv);
+
+    if (cond_->IsSatisfied()) {
+      sec_param->finished = true;
+    }
+  } else {
+    ov_driver_->Drive(0, 0);
   }
 }
