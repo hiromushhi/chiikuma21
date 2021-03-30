@@ -13,7 +13,6 @@ Luminous* luminous;
 RlTracer* rl_tracer;
 VlTracer* vl_tracer;
 OvDriver* ov_driver;
-StateManager* state_manager;
 
 void initialize() {
   motor_io = new MotorIo();
@@ -23,14 +22,12 @@ void initialize() {
   rl_tracer = new RlTracer(luminous);
   vl_tracer = new VlTracer(localize);
   ov_driver = new OvDriver(motor_io);
-  state_manager = new StateManager();
 
   ev3_lcd_set_font(EV3_FONT_MEDIUM);
   ev3_led_set_color(LED_ORANGE);
 }
 
 void finalize() {
-  delete state_manager;
   delete ov_driver;
   delete vl_tracer;
   delete rl_tracer;
