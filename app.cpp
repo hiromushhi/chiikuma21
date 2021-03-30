@@ -13,6 +13,7 @@ Luminous* luminous;
 RlTracer* rl_tracer;
 VlTracer* vl_tracer;
 OvDriver* ov_driver;
+Scenario* scenario;
 
 void initialize() {
   motor_io = new MotorIo();
@@ -22,12 +23,14 @@ void initialize() {
   rl_tracer = new RlTracer(luminous);
   vl_tracer = new VlTracer(localize);
   ov_driver = new OvDriver(motor_io);
+  scenario = new Scenario();
 
   ev3_lcd_set_font(EV3_FONT_MEDIUM);
   ev3_led_set_color(LED_ORANGE);
 }
 
 void finalize() {
+  delete scenario;
   delete ov_driver;
   delete vl_tracer;
   delete rl_tracer;
@@ -58,6 +61,7 @@ void main_task() {
 }
 
 void exec_action_task() {
+  scenario->Exec();
 }
 
 void update_info_task() {
