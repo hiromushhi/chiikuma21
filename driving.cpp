@@ -9,9 +9,8 @@ RlTracer::~RlTracer() {
   delete pid_control_;
 }
 
-float RlTracer::Exec() {
+float RlTracer::Run() {
   Hsv curr_hsv = luminous_->GetHsv();
-
   float mv = pid_control_->GetMv(curr_hsv.v, 50);
   return mv;
 }
@@ -25,16 +24,7 @@ VlTracer::~VlTracer() {
   delete pid_control_;
 }
 
-float VlTracer::Exec() {
-  // Posture posture = localize_->GetPosture();
-
-  // static Posture orbit = {0, 0, 0};
-  // orbit.x = posture.x;
-  // orbit.y = 0;
-
-  // float L = sqrt(pow((orbit.x - posture.x), 2) + pow((orbit.y - posture.y), 2));
-  // float mv = pid_control_->GetMv(L, 0);
-  // return mv;
+float VlTracer::Run() {
   return 0;
 }
 
@@ -42,7 +32,7 @@ OvDriver::OvDriver(MotorIo* motor_io) {
   motor_io_ = motor_io;
 }
 
-void OvDriver::Exec(float mv) {
+void OvDriver::Drive(float mv) {
   int8_t power_l = (20 + mv);
   int8_t power_r = (20 - mv);
   motor_io_->SetPower(power_l, power_r);
@@ -79,10 +69,4 @@ bool DistCond::IsSatisfied() {
   } else {
     return false;
   }
-}
-
-void RlSection::Exec() {
-}
-
-void VlSection::Exec() {
 }

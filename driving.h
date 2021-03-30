@@ -4,17 +4,11 @@
 #include "etrc_info.h"
 #include "utils.h"
 
-enum Edge {
-  kLeft = 0,
-  kRight,
-  kEdgeNum
-};
-
 class RlTracer {
  public:
   RlTracer(Luminous* luminous);
   ~RlTracer();
-  float Exec();
+  float Run();
 
  private:
   Luminous* luminous_;
@@ -25,7 +19,7 @@ class VlTracer {
  public:
   VlTracer(Localize* localize);
   ~VlTracer();
-  float Exec();
+  float Run();
 
  private:
   Localize* localize_;
@@ -35,7 +29,7 @@ class VlTracer {
 class OvDriver {
  public:
   OvDriver(MotorIo* motor_io);
-  void Exec(float mv);
+  void Drive(float mv);
 
  private:
   MotorIo* motor_io_;
@@ -65,24 +59,6 @@ class DistCond : public Cond {
   Localize* localize_;
   float distance_;
   float origin_;
-};
-
-class CompCond : public Cond {
-};
-
-class Section {
- public:
-  virtual void Exec() = 0;
-};
-
-class RlSection : public Section {
- public:
-  void Exec();
-};
-
-class VlSection : public Section {
- public:
-  void Exec();
 };
 
 #endif  // CHIIKUMA21_DRIVING_H_
